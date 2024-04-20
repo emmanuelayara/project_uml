@@ -14,21 +14,21 @@ def feed():
 def jobs():
     return render_template ("jobs.html")
 
-@app.route("/login")
-def login():
+@app.route("/employee_login")
+def employee_login():
     return render_template ("employee_login.html")
 
-@app.route("/login2")
-def login2():
+@app.route("/employer_login")
+def employer_login():
     return render_template ("employer_login.html")
 
 
-@app.route("/register")
-def register():
+@app.route("/employee_register")
+def employee_register():
     return render_template ("employee_register.html")
 
-@app.route("/register2")
-def register2():
+@app.route("/employer_register")
+def employer_register():
     return render_template ("employer_register.html")
 
 @app.route("/profile")
