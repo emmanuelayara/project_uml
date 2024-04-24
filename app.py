@@ -1,4 +1,7 @@
 from flask import Flask, render_template
+from settings import app, db
+from models import Users
+
 
 app = Flask(__name__)
 
