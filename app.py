@@ -1,13 +1,25 @@
 from flask import Flask, render_template
-from settings import app, db
+#from settings import app, db
 from models import Users
 
 
 app = Flask(__name__)
 
+
+class Profile:
+    def __init__(self, name, profession, college, year_of_graduation, course, skills, previous_jobs):
+        self.name = name
+        self.profession = profession
+        self.college = college
+        self.year_of_graduation = year_of_graduation
+        self.course = course
+        self.skills = skills
+        self.previous_jobs = previous_jobs
+
 @app.route("/")
 def newwave():
     return render_template ("newwave.html")
+
 
 @app.route("/feed")
 def feed():
@@ -34,9 +46,22 @@ def employee_register():
 def employer_register():
     return render_template ("employer_register.html")
 
-@app.route("/profile")
-def profile():
-    return render_template ("profile.html")
+@app.route("/employee_profile")
+def employee_profile():
+    return render_template ("employee_profile.html")
+    
+
+@app.route("/create_employee_profile")
+def create_employee_profile():
+    return render_template ("create_employee_profile.html")
+
+@app.route("/employer_profile")
+def employer_profile():
+    return render_template ("employer_profile.html")
+
+@app.route("/create_employer_profile")
+def create_employer_profile():
+    return render_template ("create_employer_profile.html")
 
 @app.route("/network")
 def network():
