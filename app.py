@@ -1,9 +1,14 @@
-from flask import Flask, render_template
-#from settings import app, db
+from flask import Flask, render_template, request, jsonify
+from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 from models import Users
+from forms import ItemForm
+from settings import app, db
+import random
+import os
 
 
 app = Flask(__name__)
+jwt = JWTManager(app)
 
 
 class Profile:
@@ -15,6 +20,25 @@ class Profile:
         self.course = course
         self.skills = skills
         self.previous_jobs = previous_jobs
+
+
+@app.route("/register")
+def register():
+    form = ItemForm()
+
+    if request.method == "POST":
+        user_info = Users(
+            password = request.json.get("password"),
+            email = request.json.get("email")
+        )
+
+        db.session.add(user_info)
+        db.session.commit()
+
+        message = "Welcome, your user ID is {}. Kindly keep it somewhere save as this is required for login".format(id)
+        access_token = create_access_token(identity=id)
+        return jsonify(access_token=access_token,msg=message), 201
+
 
 @app.route("/")
 def newwave():

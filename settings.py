@@ -1,15 +1,16 @@
-
 import os
+import moment
 from flask import Flask
 from flask_migrate import Migrate
-from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
-env_file_name = ".env"
-env_path = './env'
-load_dotenv(dotenv_path=env_path)
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.secret_key = os.urandom(32)
+load_dotenv()
+# Configure your secret key and JWT settings
+app.config['JWT_SECRET_KEY'] = os.environ.get('JWT_SECRET_KEY')
+secret_key = os.environ.get('SECRET_KEY')
+db_password = os.environ.get('PASSWORD')
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI')
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
