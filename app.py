@@ -5,17 +5,6 @@ from models import Users
 
 app = Flask(__name__)
 
-
-class Profile:
-    def __init__(self, name, profession, college, year_of_graduation, course, skills, previous_jobs):
-        self.name = name
-        self.profession = profession
-        self.college = college
-        self.year_of_graduation = year_of_graduation
-        self.course = course
-        self.skills = skills
-        self.previous_jobs = previous_jobs
-
 @app.route("/")
 def newwave():
     return render_template ("newwave.html")
@@ -49,7 +38,6 @@ def employer_register():
 @app.route("/employee_profile")
 def employee_profile():
     return render_template ("employee_profile.html")
-    
 
 @app.route("/create_employee_profile")
 def create_employee_profile():
