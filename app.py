@@ -7,7 +7,6 @@ import random
 import os
 
 
-app = Flask(__name__)
 jwt = JWTManager(app)
 
 
