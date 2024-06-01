@@ -1,9 +1,14 @@
-from flask import Flask, render_template
-#from settings import app, db
+from flask import Flask, render_template, request, jsonify
+from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 from models import Users
+from forms import ItemForm
+from settings import app, db
+import random
+import os
 
 
-app = Flask(__name__)
+jwt = JWTManager(app)
+
 
 @app.route("/")
 def newwave():
