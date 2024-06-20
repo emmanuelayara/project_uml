@@ -12,7 +12,7 @@ class Users(db.Model):
   first_name = db.Column(db.String(500))
   last_name = db.Column(db.String(500))
   role = db.Column(db.String(500))
-  year_of_graduation = db.column(db.integer(500))
+  year_of_graduation = db.column(db.Integer(500))
   previous_employment = db.Column(db.String(500))
 
   # Create employer table
