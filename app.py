@@ -1,13 +1,10 @@
-from flask import Flask, render_template, request, jsonify
-from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
-from models import Users
-from forms import ItemForm
-from settings import app, db
-import random
 import os
-
-
-jwt = JWTManager(app)
+import random
+from models import *
+from settings import *
+from forms import ItemForm
+from flask import Flask, render_template, request, jsonify
+from models import Users, Applications, Jobs, Notifications, Employers, Profiles, Admin
 
 
 @app.route("/")
