@@ -7,6 +7,7 @@ from flask import Flask, render_template, request, jsonify
 from models import Users, Applications, Jobs, Notifications, Employers, Profiles, Admin
 
 
+
 @app.route("/")
 def newwave():
     return render_template ("newwave.html")
@@ -56,13 +57,21 @@ def employer_register():
 def employee_profile():
     return render_template ("employee_profile.html")
 
-@app.route("/create_employee_profile")
+@app.route("/create_employee_profile", methods=['GET', 'POST'])
 def create_employee_profile():
-    return render_template ("create_employee_profile.html")
+    form = ProfileForm()
+    if request.method=="POST":
+        print("name:",form.name.data)
+        print("Address:",form.Address.data)
+        print("Email:",form.email.data)
+        print("profession:",form.Profession.data)
+        Print("college:",form.college.data)
+    return render_template ("create_employee_profile.html", form=form)
 
 @app.route("/employer_profile")
 def employer_profile():
     return render_template ("employer_profile.html")
+
 
 @app.route("/create_employer_profile")
 def create_employer_profile():

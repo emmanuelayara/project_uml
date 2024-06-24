@@ -13,7 +13,7 @@ class Users(db.Model):
   first_name = db.Column(db.String(500))
   last_name = db.Column(db.String(500))
   role = db.Column(db.String(500))
-  year_of_graduation = db.column(db.Integer(500))
+  year_of_graduation = db.column(db.Integer())
   previous_employment = db.Column(db.String(500))
   notifications = db.relationship('Notifications', backref='users', lazy=True)
   profiles = db.relationship('Profiles', backref='users', lazy=True)
