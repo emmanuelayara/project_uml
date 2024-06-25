@@ -2,7 +2,7 @@ import os
 import random
 from models import *
 from settings import *
-from forms import ItemForm
+from forms import EmployeeLoginForm, EmployeeProfileForm, ItemForm
 from flask import Flask, render_template, request, jsonify
 from models import Users, Applications, Jobs, Notifications, Employers, Profiles, Admin
 
@@ -23,7 +23,11 @@ def view_jobs():
 
 @app.route("/employee_login")
 def employee_login():
-    return render_template ("employee_login.html")
+    form = EmployeeLoginForm()
+    if request.method=="POST":
+        print("Username:",form.username.data)
+        print("Password:",form.password.data)
+    return render_template ("employee_login.html", form=form)
 
 @app.route("/employer_login")
 def employer_login():
@@ -59,13 +63,13 @@ def employee_profile():
 
 @app.route("/create_employee_profile", methods=['GET', 'POST'])
 def create_employee_profile():
-    form = ProfileForm()
+    form = EmployeeProfileForm()
     if request.method=="POST":
-        print("name:",form.name.data)
-        print("Address:",form.Address.data)
+        print("Name:",form.name.data)
+        print("Address:",form.address.data)
         print("Email:",form.email.data)
-        print("profession:",form.Profession.data)
-        Print("college:",form.college.data)
+        print("Profession:",form.profession.data)
+        print("College:",form.college.data)
     return render_template ("create_employee_profile.html", form=form)
 
 @app.route("/employer_profile")

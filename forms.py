@@ -5,13 +5,21 @@ from wtforms import SubmitField, RadioField, SelectField
   
 
 
-class ProfileForm(Form):  
-   name = TextAreaField("name")
-   Address = TextAreaField("Address")  
+class EmployeeProfileForm(Form):  
+   name = TextAreaField("Name")
+   address = TextAreaField("Address")  
    email = TextAreaField("Email")    
-   Profession = TextAreaField("profession")
-   college = TextAreaField("college")
+   profession = TextAreaField("Profession")
+   college = TextAreaField("College")
    submit = SubmitField("Submit")
+
+
+class EmployeeLoginForm(Form):
+    username = StringField("Username", validators=[DataRequired()])
+    password = StringField("Password", validators=[DataRequired()])
+    submit = SubmitField("Login")
+
+
 
 class ItemForm(Form):
     username = StringField(

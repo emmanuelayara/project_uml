@@ -36,6 +36,10 @@ body {
     text-align: center;
 }
 
+.job-container:hover {
+    box-shadow: #90cde6;
+}
+
 .job-card h3 {
     margin-top: 0;
     color: #555;
