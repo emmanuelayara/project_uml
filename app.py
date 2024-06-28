@@ -35,10 +35,10 @@ def employer_login():
     return render_template ("employer_login.html")
 
 
-@app.route("/employee_register", methods=["GET","POST"])
-def employee_register():
+@app.route("/employer_register", methods=["GET","POST"])
+def employer_register():
     if request.method == "GET":
-       return render_template ("employee_register.html")
+       return render_template ("employer_register.html")
     elif request.method == "POST":
         company_id = random.randint(1000000, 1999999)
         employer_info = Employers(
@@ -53,20 +53,6 @@ def employee_register():
 
         message = "Welcome, your ID is {}. Kindly keep it somewhere save as this is required for login".format(company_id)
         return jsonify(msg=message), 201
-
-@app.route("/employer_register", methods=["GET","POST"])
-def employer_register():
-        if request.method == "GET":
-           return render_template ("employer_register.html")
-        elif request.method == "POST":
-            company_id = random.randint(1000000, 1999999)
-            employer_info = Employers(
-                company_id = company_id,
-                password = request.json.get("password"),
-                email = request.json.get("email"),
-                company_name = request.json.get("company_name"),
-                )
-
 
 
 @app.route("/employee_profile")
