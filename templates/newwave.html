@@ -9,8 +9,6 @@
 </head>
 <body>
     {% include 'nav.html' %}
-    <img src="http://127.0.0.1:5000/static/flower.jpeg" alt="" style="height: 100px; width: 75px; border-radius: 15px;">
-    <img src="http://127.0.0.1:5000/static/flower.jpeg" alt="" style="height: 75px; width: 100px; border-radius: 50px;">
 
     <figure class="text-center">
         <blockquote class="blockquote">
@@ -29,6 +27,61 @@
           </form>
         </div>
       </nav>
+
+      <section id="about-us">
+        <h2>About Us</h2>
+        <div class="content-container">
+            <div class="image">
+              <img src="/static/newwave2.jpeg" alt="Job Portal">
+            </div>
+            <div class="text">
+                <p>
+                    Welcome to our job portal, the premier platform dedicated to connecting newly graduated students with their dream jobs. Our mission is to bridge the gap between academia and industry, providing a seamless transition from campus to career.
+                </p>
+                <p>
+                    We understand the challenges faced by fresh graduates in today's competitive job market. That's why we've designed our portal to be user-friendly and resourceful, offering a range of features that cater specifically to the needs of recent graduates.
+                </p>
+                <p>
+                    Our extensive database includes job listings from various industries, tailored to match your skills and aspirations. With our advanced search filters, personalized job recommendations, and career resources, we aim to make your job search experience efficient and effective.
+                </p>
+                <p>
+                    Join us today and take the first step towards launching your career with confidence. Together, we can turn your academic achievements into professional success.
+                </p>
+            </div>
+        </div>
+    </section>
+
+      <section id="most-applied-jobs">
+        <h2>Jobs with the Highest Waves</h2>
+        <div class="job-container">
+            <div class="job-card">
+                <h3>Software Developer</h3>
+                <p>Applications: 1500</p>
+            </div>
+            <div class="job-card">
+                <h3>Graphic Designer</h3>
+                <p>Applications: 1200</p>
+            </div>
+            <div class="job-card">
+                <h3>Data Scientist</h3>
+                <p>Applications: 1100</p>
+            </div>
+            <div class="job-card">
+                <h3>Marketing Manager</h3>
+                <p>Applications: 950</p>
+            </div>
+            <div class="job-card">
+                <h3>Sales Executive</h3>
+                <p>Applications: 850</p>
+            </div>
+            <div class="job-card">
+                <h3>HR Specialist</h3>
+                <p>Applications: 800</p>
+            </div>
+        </div>
+    </section>
+
+
       {% include 'footer.html' %}
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>

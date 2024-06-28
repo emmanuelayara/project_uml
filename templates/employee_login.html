@@ -9,36 +9,26 @@
 </head>
 <body>
     {% include 'nav.html' %}
-    <div class="container">
-
-        <form method="POST">
-            <h3 style="align-self: center;" class="text-center mt-2 mb-4">login to apply for jobs</h3>
-            <div class="form-group">
-              <label for="username" class="col-form-label col-auto">Username</label>
-              <input
-              class="col-3 form-control"
-                type="username"
-                id="username"
-                name="username"
-                placeholder="Enter Username"
-              />
-            </div>
-    
-            <div class="form-group">
-              <label for="password" class="col-form-label col-auto">Password</label>
-              <input
-              class="col-3 form-control"
-                type="password"
-                id="password"
-                name="password"
-                placeholder="Enter password here"
-              />
-            </div>
-            <br />
-            <button type="submit" class="btn btn-primary">Login</button>
-          </form>
-          <a href="{{ url_for('employee_register') }}">do not have an account? Create an account.</a>
-    </div>
+    <h4 align="center" class="text-center mt-2 mb-4">login to to apply for jobs</h4>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+          <div class="col-md-6">
+            <form action="/signup" method="post">
+              <div class="form-group">
+                <label for="email">Username:</label>
+                <input type="email" class="form-control" id="email" name="email" required placeholder="Enter Username">
+              </div>
+              <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control" id="password" name="password" required placeholder="Password">
+              </div> <br>
+              <button type="submit" class="btn btn-primary">Login</button> <br><br>
+              <a href="{{ url_for('employee_register') }}">do not have an account? Create an account.</a>
+            </form>
+          </div>
+        </div>
+      </div>
+       
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>

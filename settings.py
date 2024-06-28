@@ -13,7 +13,7 @@ load_dotenv()
 secret_key = os.environ.get('SECRET_KEY')
 db_password = os.environ.get('PASSWORD')
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI')
-db = SQLAlchemy(app)
+db = SQLAlchemy()
 migrate = Migrate(app, db)
 
 # Configure JWT
