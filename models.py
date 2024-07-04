@@ -12,9 +12,6 @@ class Users(db.Model):
   password = db.Column(db.String(500))
   first_name = db.Column(db.String(500))
   last_name = db.Column(db.String(500))
-  role = db.Column(db.String(500))
-  year_of_graduation = db.Column(db.Integer)
-  previous_employment = db.Column(db.String(500))
   notifications = db.relationship('Notifications', backref='users', lazy=True)
   profiles = db.relationship('Profiles', backref='users', lazy=True)
   applications = db.relationship('Applications', backref='users', lazy=True)
@@ -45,7 +42,10 @@ class Profiles(db.Model):
 
   profile_id = db.Column(db.Integer, primary_key=True)
   user_id = db.Column(db.Integer, db.ForeignKey('users.email'), nullable=True)
-  bio = db.Column(db.String) 
+  role = db.Column(db.String(500))
+  year_of_graduation = db.Column(db.Integer)
+  previous_employment = db.Column(db.String(500))
+  bio = db.Column(db.String(500)) 
   location = db.Column(db.String)
   skills = db.Column(db.String)
 

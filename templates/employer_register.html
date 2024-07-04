@@ -9,27 +9,41 @@
 </head>
 <body>
     {% include 'nav.html' %}
-    <h4 align="center" class="text-center mt-2 mb-4">Create an account to usher in the <b>New Wave</b> </h4>
+    <h4 class="text-center mt-2 mb-4">Create an account to begin your <b>Journey</b> </h4>
     <div class="container mt-5">
         <div class="row justify-content-center">
           <div class="col-md-6">
-            <form action="/signup" method="post">
+            <form action="/register" method="post">
               <div class="form-group">
                 <label for="email">Email:</label>
-                <input type="email" class="form-control" id="email" name="email" required>
+                {{ form.email(class_ = 'form-control', placeholder='email@email.com', autofocus = true) }}
+              </div>
+              <div class="form-group">
+                <label for="password">Company ID:</label>
+                {{ form.company_id(class_ = 'form-control', placeholder='1234578', autofocus = true) }}
               </div>
               <div class="form-group">
                 <label for="password">Password:</label>
-                <input type="password" class="form-control" id="password" name="password" required>
-              </div> <br>
-              <button type="submit" class="btn btn-primary">Sign Up</button> <br><br>
+                {{ form.password(class_ = 'form-control', placeholder='Password', autofocus = true) }}
+              </div>
+              <div class="form-group">
+                <label for="password">First Name:</label>
+                {{ form.company_name(class_ = 'form-control', placeholder='Company Name', autofocus = true) }}
+              </div>
+              <div class="form-group">
+                <label for="password">Location:</label>
+                {{ form.location(class_ = 'form-control', placeholder='location', autofocus = true) }}
+              </div>
+              <br>
+              <button type="submit" class="btn btn-primary">Sign Up</button><br><br>
               <a href="{{ url_for('employer_login') }}">already have an account? Login.</a>
             </form>
           </div>
         </div>
       </div>
     
-
+    
+    {% include 'footer.html' %}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script> 
 </body>
 </html>

@@ -2,9 +2,9 @@ import os
 import random
 from models import *
 from settings import *
-from forms import EmployeeLoginForm, EmployeeProfileForm, ItemForm
-from flask import Flask, render_template, request, jsonify
-from models import Users, Applications, Jobs, Notifications, Employers, Profiles, Admin
+from forms import *
+from flask import Flask, render_template, request, jsonify, redirect
+from models import *
 
 
 
@@ -18,57 +18,163 @@ def feed():
         if request.method == "GET":
            return render_template ("feed.html")    
 
-@app.route("/jobs", methods=['GET'])
-def view_jobs():
-    return render_template ("jobs.html")
+@app.route("/register", methods=["GET","POST"])
+def register_user():
+    form = UserForm()
+    if request.method == "GET":
+       return render_template ("employee_register.html", form=form)
+    
+    elif request.method == "POST":
+        user_info = Users(
+            email = form.email.data,
+            password = form.password.data,
+            first_name = form.first_name.data,
+            last_name = form.last_name.data,
+        )
 
-@app.route("/employee_login", methods=['GET'])
-def employee_login():
-    form = EmployeeLoginForm()
-    if request.method=="GET":
-       print("Username:",form.username.data)
-       print("Password:",form.password.data)
-       return render_template ("employee_login.html", form=form)
+        db.session.add(user_info)
+        db.session.commit()
 
-@app.route("/employer_login", methods=['GET'])
-def employer_login():
-    return render_template ("employer_login.html")
+        message = "Welcome, {}".format(user_info.first_name)
+        return jsonify(msg=message)
+    
+    else:
+        message = "Kindly select the correct request method"
+        return jsonify(msg=message)
 
+@app.route("/user_login", methods=['GET', 'POST'])
+def user_login():
+    form = UserForm()
+    if request.method == 'GET':
+        return render_template ("employee_login.html", form=form)
 
+    elif request.method =="POST":
+        email = form.email.data,
+        password = form.password.data
+
+        data = Users.query.get(email)
+        if data:
+            if data.password == password:
+                return render_template("employee_profile.html",data=data)
+            else:
+                return ({"StatusCode": 401, "message": "Wrong username or password"})
+        else:
+            return jsonify({"StatusCode": 404, "Message": "User does not exist"})
+        
+    else:
+        message = "Kindly select the correct request method"
+        return jsonify(msg=message)
+    
+@app.route("/create_user_profile/<string:email>", methods=['GET', 'POST'])
+def create_user_profile(email):
+    form = UserForm()
+
+    if request.method == "GET":
+        return render_template("employee_profile.html", form=form)
+    
+    elif request.method=="POST":
+        user_data = Profiles(
+            profile_id = random.randint(1000, 10000),
+            location = form.location.data,
+            user_id = email,
+        )
+        
+        db.session.add(user_data)
+        db.session.commit()
+
+        data = Users.query.get(email)
+        return render_template("employee_profile.html", data=data)
+    
+@app.route("/user_profile/<string:email>/update", methods=['GET', 'PUT'])
+def update_user_profile(email):
+    form = UserForm()
+    data = Users.query.get(email)
+
+    if data:
+        if request.method == "GET":
+            return render_template("employee_profile.html", form=form,data=data)
+        
+        elif request.method =="PUT":
+            profile = Profiles(
+                location = form.location.data,
+            )
+            
+            db.session.add(profile)
+            db.session.commit()
+
+            data = Users.query.get(email)
+            return render_template("employee_profile.html", data=data)
+    else:
+        return jsonify({"StatusCode": 404, "Message": "User does not exist"})
+
+@app.route("/user_account/<string:email>/delete", methods=['GET', 'DELETE'])
+def delete_user_account(email):
+    form = UserForm()
+    data = Users.query.get(email)
+
+    if request.method == 'GET':
+        return render_template ("employee_login.html", form=form)
+
+    elif request.method =="DELETE":
+        password = form.password.data
+
+        
+        if data.password == password:
+        
+            db.session.delete(data)
+            db.session.commit()
+        return jsonify({"StatusCode": 200, "message": "Account deleted successfully"})
+
+@app.route("/user_profile", methods=['GET'])
+def user_profile(email):
+    if request.method == "GET":
+        data = Users.query.get(email)
+        return render_template ("employee_profile.html", data=data)
+        
 @app.route("/employer_register", methods=["GET","POST"])
 def employer_register():
+    form = EmployerForm()
     if request.method == "GET":
-       return render_template ("employer_register.html")
+       return render_template ("employer_register.html", form=form)
+    
     elif request.method == "POST":
-        company_id = random.randint(1000000, 1999999)
         employer_info = Employers(
-            company_id = company_id,
-            password = request.json.get("password"),
-            email = request.json.get("email"),
-            company_name = request.json.get("company_name"),
+            company_id = form.company_id.data,
+            password = form.password.data,
+            email = form.email.data,
+            company_name = form.company_name.data,
+            location = form.location.data,
+            website = form.website.data
         )
 
         db.session.add(employer_info)
         db.session.commit()
 
-        message = "Welcome, your ID is {}. Kindly keep it somewhere save as this is required for login".format(company_id)
-        return jsonify(msg=message), 201
+        message = "Welcome, your ID is {}. Kindly keep it somewhere save as this is required for login".format(employer_info.company_id)
+        return jsonify(msg=message)
+    
+    else:
+        message = "Kindly select the correct request method"
+        return jsonify(msg=message)
 
+@app.route("/employer_login", methods=['GET', 'POST'])
+def employer_login():
+    form = EmployerForm
+    if request.method == "GET":
+        return render_template ("employer_login.html", form=form)
 
-@app.route("/employee_profile")
-def employee_profile():
-    return render_template ("employee_profile.html")
+    elif request.method=="POST":
+        company_id = form.username.data,
+        password = form.password.data
 
-@app.route("/create_employee_profile", methods=['GET', 'POST'])
-def create_employee_profile():
-    form = EmployeeProfileForm()
-    if request.method=="POST":
-        print("Name:",form.name.data)
-        print("Address:",form.address.data)
-        print("Email:",form.email.data)
-        print("Profession:",form.profession.data)
-        print("College:",form.college.data)
-    return render_template ("create_employee_profile.html", form=form)
+        user = Users.query.get(company_id)
+        if user.password == password:
+            return render_template("employer_profile.html", data=user)
+        
+    else:
+        message = "Kindly select the correct request method"
+        return jsonify(msg=message)
+
 
 @app.route("/employer_profile", methods=['POST'])
 def employer_profile():
@@ -79,11 +185,17 @@ def employer_profile():
 def create_employer_profile():
     return render_template ("create_employer_profile.html")
 
-@app.route("/network")
-def network():
-    return render_template ("network.html", methods=['GET','POST'])
 
-@app.route("/notifications")
+@app.route("/jobs", methods=['GET','POST'])
+def jobs():
+    return render_template ("jobs.html")
+
+@app.route("/network", methods=['GET','POST'])
+def network():
+    return render_template ("network.html")
+
+
+@app.route("/notifications", methods=['GET','POST'])
 def notifications():
     return render_template ("notifications.html", methods=['GET'])
 

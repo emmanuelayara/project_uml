@@ -13,17 +13,19 @@
     <div class="container mt-5">
         <div class="row justify-content-center">
           <div class="col-md-6">
-            <form action="/signup" method="post">
+            <form action="/user_login" method="post">
               <div class="form-group">
-                <label for="email">Username:</label>
-                <input type="email" class="form-control" id="email" name="email" required placeholder="Enter Username">
-              </div>
-              <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" class="form-control" id="password" name="password" required placeholder="Password">
-              </div> <br>
+                <div class="form-group">
+                  <label for="email">Email:</label>
+                  {{ form.email(class_ = 'form-control', placeholder='email@email.com', autofocus = true) }}
+                </div>
+                <div class="form-group">
+                  <label for="password">Password:</label>
+                  {{ form.password(class_ = 'form-control', placeholder='Password', autofocus = true) }}
+                </div>
+                <br>
               <button type="submit" class="btn btn-primary">Login</button> <br><br>
-              <a href="{{ url_for('employee_register') }}">do not have an account? Create an account.</a>
+              <a href="{{ url_for('register') }}">do not have an account? Create an account.</a>
             </form>
           </div>
         </div>
