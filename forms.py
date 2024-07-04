@@ -4,29 +4,31 @@ from wtforms.validators import DataRequired, AnyOf, URL
 from wtforms import SubmitField, RadioField, SelectField  
   
 
+class UserForm(Form):  
+   first_name = StringField("First Name", validators=[DataRequired()])
+   last_name = StringField("Last Name", validators=[DataRequired()])
+   password = StringField("Password", validators=[DataRequired()])
+   email = StringField("Email", validators=[DataRequired()])
+   location = StringField("Address")      
+   bio = TextAreaField("Bio")
+   skills = StringField("Skills")
+   role = StringField("Role")
+   year_of_graduation = IntegerField("Year of Graduation")
+   profile_id = StringField("profile_id")
 
-class EmployeeProfileForm(Form):  
-   name = TextAreaField("Name")
-   address = TextAreaField("Address")  
-   email = TextAreaField("Email")    
-   profession = TextAreaField("Profession")
-   college = TextAreaField("College")
-   submit = SubmitField("Submit")
 
-
-class EmployeeLoginForm(Form):
-    username = StringField("Username", validators=[DataRequired()])
+class EmployerForm(Form):
     password = StringField("Password", validators=[DataRequired()])
-    submit = SubmitField("Login")
+    company_name = StringField("Company Name", validators=[DataRequired()])
+    email = StringField("Email")
+    location = SelectField("Location")
+    website = StringField("Website")
+    
 
-
-
-class ItemForm(Form):
-    username = StringField(
-    )
-    email = EmailField(
-        "email", validators=[DataRequired()]
-    )
-    password = StringField(
-        "password", validators=[DataRequired()]
-    )
+class JobForm(Form):
+    company_id = IntegerField("Job id")
+    title = StringField("Title")
+    description = StringField("Description")
+    location = SelectField("Location")
+    salary = StringField("Salary")
+    job_type = StringField(choices=[("Remote", "Remote"),("On Site", "On Site"),("Hybrid", "Hybrid")])
