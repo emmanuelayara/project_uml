@@ -3,7 +3,7 @@ import random
 from models import *
 from settings import *
 from forms import *
-from flask import Flask, render_template, request, jsonify, redirect
+from flask import Flask, render_template, request, jsonify, redirect, url_for
 from models import *
 
 
@@ -19,7 +19,7 @@ def feed():
            return render_template ("feed.html")    
 
 @app.route("/register", methods=["GET","POST"])
-def register_user():
+def register():
     form = UserForm()
     if request.method == "GET":
        return render_template ("employee_register.html", form=form)
@@ -36,7 +36,7 @@ def register_user():
         db.session.commit()
 
         message = "Welcome, {}".format(user_info.first_name)
-        return jsonify(msg=message)
+        return redirect(url_for("user_login"))
     
     else:
         message = "Kindly select the correct request method"
