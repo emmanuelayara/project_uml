@@ -18,6 +18,7 @@ class UserForm(Form):
 
 
 class EmployerForm(Form):
+    company_id = StringField("Company ID", validators=[DataRequired()])
     password = StringField("Password", validators=[DataRequired()])
     company_name = StringField("Company Name", validators=[DataRequired()])
     email = StringField("Email")
