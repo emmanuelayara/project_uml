@@ -23,6 +23,7 @@ class EmployerForm(Form):
     company_name = StringField("Company Name", validators=[DataRequired()])
     email = StringField("Email")
     location = SelectField("Location")
+    username = StringField("username")
     website = StringField("Website")
     
 
