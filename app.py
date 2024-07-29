@@ -4,7 +4,6 @@ from models import *
 from settings import *
 from forms import *
 from flask import Flask, render_template, request, jsonify, redirect, url_for
-from models import *
 
 
 
