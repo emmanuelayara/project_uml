@@ -6,7 +6,6 @@ from forms import *
 from flask import Flask, render_template, request, jsonify, redirect, url_for
 
 
-
 @app.route("/", methods=['GET'])
 def newwave():
     return render_template ("newwave.html")
@@ -77,7 +76,7 @@ def create_user_profile(email):
             location = form.location.data,
             user_id = email,
         )
-        
+    
         db.session.add(user_data)
         db.session.commit()
 
