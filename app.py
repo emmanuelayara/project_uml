@@ -172,7 +172,7 @@ def employer_login():
             return render_template("employer_profile.html", data=user)
         
     else:
-        message = "Kindly select the correct request method"
+        message = "Kindly select the correct request method and try again"
         return jsonify(msg=message)
 
 
