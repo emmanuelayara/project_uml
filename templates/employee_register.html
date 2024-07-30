@@ -15,12 +15,24 @@
           <div class="col-md-6">
             <form action="/register" method="post">
               <div class="form-group">
+                <label for="referral_code">School Referral Code:</label>
+                <input type="text" class="form-control" id="referral_code" name="referral_code">
+              </div>
+              <div class="form-group">
                 <label for="email">Email:</label>
-                {{ form.email(class_ = 'form-control', placeholder='ayara@gmail.com', autofocus = true) }}
+                {{ form.email(class_ = 'form-control', placeholder='email@email.com', autofocus = true) }}
               </div>
               <div class="form-group">
                 <label for="password">Password:</label>
-                {{ form.password(class_ = 'form-control', placeholder='password', autofocus = true) }}
+                {{ form.password(class_ = 'form-control', placeholder='Password', autofocus = true) }}
+              </div>
+              <div class="form-group">
+                <label for="password">First Name:</label>
+                {{ form.first_name(class_ = 'form-control', placeholder='First Name', autofocus = true) }}
+              </div>
+              <div class="form-group">
+                <label for="password">Last Name:</label>
+                {{ form.last_name(class_ = 'form-control', placeholder='Last Name', autofocus = true) }}
               </div>
               <br>
               <button type="submit" class="btn btn-primary">Sign Up</button> <br><br>
