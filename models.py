@@ -8,7 +8,7 @@ db = SQLAlchemy()
 class Users(db.Model):
   __tablename__ = 'users'
 
-  email = db.Column(db.String, primary_key=True)
+  email = db.Column(db.String(50), primary_key=True, unique=True, nullable=False)
   password = db.Column(db.String(500))
   first_name = db.Column(db.String(500))
   last_name = db.Column(db.String(500))

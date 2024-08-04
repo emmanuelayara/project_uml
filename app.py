@@ -40,6 +40,7 @@ def register():
     else:
         message = "Kindly select the correct request method"
         return jsonify(msg=message)
+        
 
 @app.route("/user_login", methods=['GET', 'POST'])
 def user_login():
