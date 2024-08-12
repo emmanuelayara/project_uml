@@ -122,3 +122,12 @@ body {
         margin-bottom: 20px;
     }
 }
+
+#footer {
+    background-color: #f8f9fa; /* Optional: add a background color */
+    padding: 20px 0; /* Optional: add padding */
+}
+
+.containers {
+    text-align: center; /* Center align footer content */
+}

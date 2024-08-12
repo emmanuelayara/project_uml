@@ -3,7 +3,7 @@ import random
 from models import *
 from settings import *
 from forms import *
-from flask import Flask, render_template, request, jsonify, redirect, url_for
+from flask import Flask, render_template, request, jsonify, redirect, url_for, flash
 
 
 
@@ -54,6 +54,7 @@ def user_login():
         data = Users.query.get(email)
         if data:
             if data.password == password:
+                flash('login success!!!!')
                 return render_template("employee_profile.html",data=data)
             else:
                 return ({"StatusCode": 401, "message": "Wrong username or password"})
@@ -72,6 +73,7 @@ def create_user_profile(email):
         return render_template("create_employee_profile.html", form=form)
     
     elif request.method=="POST":
+        data = Users.query.get(email)
         user_data = Profiles(
             profile_id = random.randint(1000, 10000),
             location = form.location.data,
@@ -81,7 +83,6 @@ def create_user_profile(email):
         db.session.add(user_data)
         db.session.commit()
 
-        data = Users.query.get(email)
         return render_template("employee_profile.html", data=data)
     
 @app.route("/user_profile/<string:email>/update", methods=['GET', 'PUT'])
@@ -129,6 +130,7 @@ def user_profile(email):
     if request.method == "GET":
         data = Users.query.get(email)
         return render_template ("employee_profile.html", data=data)
+    
         
 @app.route("/employer_register", methods=["GET","POST"])
 def employer_register():
@@ -143,36 +145,44 @@ def employer_register():
             email = form.email.data,
             company_name = form.company_name.data,
             location = form.location.data,
-            website = form.website.data
+            website = form.website.data,
         )
 
         db.session.add(employer_info)
         db.session.commit()
+        db.session.close()
 
-        message = "Welcome, your ID is {}. Kindly keep it somewhere save as this is required for login".format(employer_info.company_id)
-        return jsonify(msg=message)
-    
+
+        flash('user was successfully created!')
+        return render_template('employer_login.html')
+
     else:
-        message = "Kindly select the correct request method"
-        return jsonify(msg=message)
+        flash('An error occurred.')
+        db.session.rollback()
+    
+    return render_template('newwave.html')
+
 
 @app.route("/employer_login", methods=['GET', 'POST'])
 def employer_login():
     form = EmployerForm()
-    if request.method == "GET":
+    if request.method == 'GET':
         return render_template ("employer_login.html", form=form)
 
-    elif request.method=="POST":
-        company_id= form.company_id.data,
+    elif request.method =='POST':
+        company_id = form.company_id.data,
         password = form.password.data,
 
-        user = Employers.query.get(company_id)
-        if user.password == password:
-            return render_template("employer_profile.html", data=user)
-        
+        data = Employers.query.get(company_id)
+        if data:
+            if data.password == password:
+                flash('login success!!!!')
+        return render_template("employer_profile.html",data=data)
+           
     else:
-        message = "Kindly select the correct request method and try again"
+        message = "Kindly select the correct request method"
         return jsonify(msg=message)
+
 
 
 @app.route("/employer_profile", methods=['GET'])
@@ -244,20 +254,29 @@ def delete_employer_account(company_id):
         return jsonify({"StatusCode": 200, "message": "Account deleted successfully"})    
 
 
-@app.route("/jobs", methods=['GET','POST'])
+@app.route("/jobs", methods=['GET'])
 def jobs():
-    return render_template ("jobs.html")
+    data = Jobs.query.all()
+    
+    return render_template ("jobs.html", data=data)
 
-@app.route("/create_job", methods=['POST'])
-def create_job(job_id):
+@app.route("/jobs/<int:job_id>")
+def get_job(job_id):
+    data = Jobs.query.get(job_id)
+    
+    return render_template ("jobs.html", data=data)
+
+@app.route("/create_job", methods=['GET','POST'])
+def create_job():
     form = JobForm()
 
     if request.method == "GET":
-        return render_template("jobs.html", form=form)
+        return render_template("create_jobs.html", form=form)
+
     
     elif request.method=="POST":
+        job_id = random.randint(500, 2000)
         Job_data = Jobs(
-            job_id = random.randint(1000, 10000),
             company_id = form.company_id.data,
             company_name = form.company_name.data,
             title = form.title.data,
@@ -268,9 +287,13 @@ def create_job(job_id):
 
         db.session.add(Job_data)
         db.session.commit()
+        db.session.close()
 
-        data = Jobs.query.get(job_id)
-        return render_template ("jobs.html", data=data)
+    else:
+        flash('Unsuccesful attenpt to delete venue')
+
+    data = Jobs.query.get(job_id)
+    return render_template ("jobs.html", data=data)
     
 @app.route("/available_job/<string:job_id>/delete", methods=['GET', 'DELETE'])
 def delete_available_job(job_id):
@@ -278,7 +301,7 @@ def delete_available_job(job_id):
     data = Jobs.query.get(job_id)
 
     if request.method == 'GET':
-        return render_template ("jobs.html", form=form)
+        return render_template ("create_jobs.html", form=form)
     
     elif request.method == 'GET':
         password = form.password.data
@@ -288,6 +311,7 @@ def delete_available_job(job_id):
             db.session.delete(data)
             db.session.commit()
         return jsonify({"StatusCode": 200, "message": "Available Job deleted successfully"})
+
 
 @app.route("/network", methods=['GET','POST'])
 def network():

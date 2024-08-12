@@ -11,26 +11,32 @@
     {% include 'nav.html' %}
     <nav class="navbar bg-body-tertiary container text-center">
       <div class="container-fluid d-inline-block">
-        <form class="d-flex" role="search"> 
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
-      </div>
-    </nav>
-
-    <ul class="items">
-      {% for job in data %}
-      <li>
-        <a href="/jobs/{{ job.id }}">
-          <i class="fas fa-users"></i>
-          <div class="item">
-            <h5>{{ job.title }}</h5>
-          </div>
-        </a>
-      </li>
-      {% endfor %}
-    </ul>
     
+    <form method="POST" action="/submit">
+    <div>
+    
+    {{ form.title.label }}
+    
+    {{ form.title(class="form-control") }} <br>
+    
+    
+    {{ form.location.label }}
+    
+    {{ form.location(class="form-control") }} <br>
+
+
+    {{ form.job_type.label }}
+    
+    {{ form.job_type(class="form-control") }} <br>
+
+    
+    {{ form.salary.label }}
+    
+    {{ form.salary(class="form-control") }} <br>
+    
+    <button type="submit" class="btn btn-primary">Post</button><br>
+</div>
+    </form>
 
     {% include 'footer.html' %}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

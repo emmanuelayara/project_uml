@@ -80,6 +80,17 @@ class Applications(db.Model):
 
   def __repr__(self):
     return f"<Applications {self.name}>"
+  
+  
+    # Create test table
+class Tests(db.Model):
+  __tablename__= 'tests'
+
+  test_id = db.Column(db.Integer, primary_key=True)
+  company_id = db.Column(db.Integer, db.ForeignKey('employers.company_id'), nullable=True)
+  question = db.Column(db.String(500))
+  answer = db.Column(db.String(500))
+  options = db.Column(db.ARRAY(500))
 
 
     # Create notification table

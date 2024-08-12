@@ -32,4 +32,4 @@ class JobForm(Form):
     description = StringField("Description")
     location = SelectField("Location")
     salary = StringField("Salary")
-    job_type = StringField(choices=[("Remote", "Remote"),("On Site", "On Site"),("Hybrid", "Hybrid")])
+    job_type = StringField('employment_type')
