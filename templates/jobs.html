@@ -30,6 +30,45 @@
       </li>
       {% endfor %}
     </ul>
+
+
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Listings</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="job-list">
+        <h1>Available Jobs</h1>
+        <ul>
+            <li class="job-item">
+                <h2>Software Developer</h2>
+                <p>Location: New York, NY</p>
+                <a href="{{ url_for('software_developer') }}">Apply</a>
+            </li>
+            <li class="job-item">
+                <h2>Graphic Designer</h2>
+                <p>Location: Los Angeles, CA</p>
+                <a href="{{ url_for('graphic_designer') }}">Apply</a>
+            </li>
+            <li class="job-item">
+                <h2>Data Analyst</h2>
+                <p>Location: Chicago, IL</p>
+                <a href="{{ url_for('data_analyst') }}">Apply</a>
+            </li>
+            <li class="job-item">
+                <h2>HR Specialist</h2>
+                <p>Location: San Francisco, CA</p>
+                <a href="{{ url_for('hr_specialist') }}">Apply</a>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>
+
     
 
     {% include 'footer.html' %}

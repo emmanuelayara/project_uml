@@ -322,5 +322,27 @@ def network():
 def notifications():
     return render_template ("notifications.html", methods=['GET'])
 
+
+@app.route("/software_developer_job.", methods=['GET','POST'])
+def software_developer():
+    return render_template ("software_developer_job.html", methods=['GET'])
+
+@app.route("/data_analyst_job.", methods=['GET','POST'])
+def data_analyst():
+    return render_template ("data_analyst_job.html", methods=['GET'])
+
+@app.route("/graphic_designer_job.", methods=['GET','POST'])
+def graphic_designer():
+    return render_template ("graphic_designer_job.html", methods=['GET'])
+
+@app.route("/hr_specialist_job.", methods=['GET','POST'])
+def hr_specialist():
+    return render_template ("hr_specialist_job.html", methods=['GET'])
+
+
+@app.route("/application_successful", methods=['GET','POST'])
+def application_successful():
+    return render_template ("application_successful.html", methods=['GET'])
+
 if __name__== "__main__":
     app.run(host="0.0.0.0", debug=True)
